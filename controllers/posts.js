@@ -31,15 +31,16 @@ module.exports = app => {
 
   //page to view a specific post
   app.get("/posts/:id", function(req, res) {
-    Post.findById(req.params.id).lean()    //look up post by post id and return it as javascript object
-      //then render to posts-show with the post tht you found in prev promise
-      .then(post => {
-        res.render('posts-show', { post });
+    Post.findById(req.params.id)    //finds post by passed in ID
+      .populate('comments')         //populates the post's comments array with actual comment models  from the id's in the array
+      //then render  posts-show with  the found post
+      .then((post) => {
+        res.render('post-show', { post })
       })
-      //error catcher for any issues in promises
-      .catch(err => {
-        console.log(err.message);
-      });
+      //if any primise fails then catch and throw an error
+      .catch((err) => {
+        console.log(err.message)
+      })
   });
 
 };

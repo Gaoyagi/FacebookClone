@@ -28,5 +28,6 @@ app.listen(process.env.PORT ||port, () => console.log(`Example app listening on 
 
 
 //REQUIRED FILES
-require('./data/fb-db');                //db and mongoose setup
+require('./data/fb-db');                    //db and mongoose setup
 require('./controllers/posts.js')(app);     //routes for posts
+require('./controllers/comments.js')(app);  //routes for comments
