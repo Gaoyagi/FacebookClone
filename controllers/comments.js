@@ -5,24 +5,25 @@ module.exports = function(app) {
     // CREATE Comment
     app.post("/posts/:postId/comments", function(req, res) {
         const comment = new Comment(req.body);          //instatiate new comment model
+        comment.author = req.user._id;                  //make the author of the comment the requested user
         comment.save()                                  //save new model to db
-             //(promise)then find the post that youre commenting on                        
-            .then(comment => {                         
-                return Post.findById(req.params.postId);
+            //(promise)then find the post that youre commenting on                        
+            .then(comment => {
+                return Promise.all([
+                    Post.findById(req.params.postId)
+                ]);
             })
-            //(promise)then add the new comment model to the beginning of the found post's comment array and then save changes to the model
-            //not the actual model is  stored, just it's ID
-            .then(post => {                             
-                post.comments.unshift(comment);  //unshift adds the ID to beginning of the array instead of the end
-                return post.save();                   
+            .then(([post, user]) => {
+                post.comments.unshift(comment);
+                return Promise.all([
+                    post.save()
+                ]);
             })
-            //after done with prev promises reidrect to homepage
-            .then(post => {                             
-                res.redirect(`/`);
+            .then(post => {
+                res.redirect(`/posts/${req.params.postId}`);
             })
-            //if  any promises fail then throw error
-            .catch(err => {                             
+            .catch(err => {
                 console.log(err);
             });
-    });
+});
 };

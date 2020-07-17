@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -7,20 +7,24 @@
 
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a href="/">Zuccbook</a>
-      </li>
-      <li class="nav-item active">
-          <a href="/posts/new" class="btn btn-primary navbar-btn">New Post</a>
-      </li>
+      {{#if currentUser}}
+        <li class="nav-item active">
+          <a href="/">Zuccbook</a>
+        </li>
+      {{else}}
+        <li class="nav-item active">
+          <a href="/feed">Zuccbook</a>
+        </li>
+      {{/if}}
     </ul>
     
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav-item active navbar-nav navbar-right">
       {{#if currentUser}}
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="/posts/new" class="btn btn-primary navbar-btn">New Post</a></li>
+        <li><a href="/logout" class="btn btn-primary navbar-btn">Logout</a></li>
       {{else}}
-        <li><a href="/login">Login</a></li>
-        <li><a href="/sign-up">Sign Up</a></li>
+        <li><a href="/" class="btn btn-primary navbar-btn">Login</a></li>
+        <li><a href="/sign-up" class="btn btn-primary navbar-btn">Sign Up</a></li>
       {{/if}}
     </ul>
     
