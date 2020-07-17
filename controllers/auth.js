@@ -49,7 +49,7 @@ module.exports = (app) => {
 
     //POST login attempt
     app.post("/", (req, res) => {
-        const name = req.body.name;      //makes username variable
+        const username = req.body.name;             //makes username variable
         const password = req.body.password;      //makes password variable
         User.findOne({ username }, "username password")   //finds the acct based off the provided username, 
             //and then returns the username  and password of the found account (thats what "username password" is for)

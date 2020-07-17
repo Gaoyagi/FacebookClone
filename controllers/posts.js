@@ -64,7 +64,7 @@ module.exports = app => {
   });
 
   //Like a Post
-  app.put("/posts/:id/vote-up", function(req, res) {
+  app.put("/posts/:id/like", function(req, res) {
     Post.findById(req.params.id).exec(function(err, post) {   //find the post based off id
       post.likedUsers.push(req.user._id);                     //add the requested user to the likedUsers list
       post.likes = post.likes + 1;                            //increase likes by 1

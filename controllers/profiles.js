@@ -3,22 +3,10 @@ const User = require('../models/userModels');
 
 module.exports = app => {
     app.get('/profile/:id', (req, res) => {
-        // var currentUser = req.user;           //gets user requesting the site
-        // User.find({ _id: req.params.id })     //finds the user you're whose profile youre visiting
-        // .lean()           //returns all the posts as javascript objects instead of Mongodb objects
-        // .then(user => {
-        //     console.log(user)
-        //     var posts = user.posts.populate('posts')          //get all the posts that the profile user has made
-        //     res.render("profile", { currentUser, user, posts });     //render to posts-index with the posts found in the previous promises
-        //         //passes in current user to tell the handlebar files if the user was logged in
-        // })
-        // //if at any point theres an error with the promises, catch and throw and error
-        // .catch(err => {
-        //   console.log(err.message);
-        // });
-        var currentUser = req.user;     //gets the user requesting the page
-        User.find({ _id: req.params.id })
-            .lean()
+        var currentUser = req.user;             //gets the user requesting the page
+        User.find({ _id: req.params.id })       //find the user based off id
+            .lean()                             //convert to js object
+            //renders to profile page with current user and found user
             .then(user => {
                 console.log(user)
                 res.render("profile", { currentUser, user });     //render to posts-index with the posts found in the previous promises
