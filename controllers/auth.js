@@ -49,26 +49,26 @@ module.exports = (app) => {
 
     //POST login attempt
     app.post("/", (req, res) => {
-        const username = req.body.name;             //makes username variable
-        const password = req.body.password;      //makes password variable
-        User.findOne({ username }, "username password")   //finds the acct based off the provided username, 
-            //and then returns the username  and password of the found account (thats what "username password" is for)
+        const name = req.body.name;             //makes username variable
+        const password = req.body.password;         //makes password variable
+        User.findOne({ name }, "name password")   //finds the acct based off the provided username, 
+            
         //promise using the user found in findOne()
         .then(user => {
             //if no user is found, throw an error
             if (!user) {
                 // User not found
-                return res.status(401).send({ message: "Wrong Username or Password" });
+                return res.status(401).send({ message: "Wrong name or Password" });
             }
             //checks the password of the found user with the password from the form
             user.comparePassword(password, (err, isMatch) => {
                 //if not a match throw an error
                 if (!isMatch) {
                     // Password does not match
-                    return res.status(401).send({ message: "Wrong Username or password" });
+                    return res.status(401).send({ message: "Wrong name or password" });
             }
             //If 
-            const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
+            const token = jwt.sign({ _id: user._id, name: user.name }, process.env.SECRET, {
                 expiresIn: "60 days"
             });
             // Set a cookie and redirect to root

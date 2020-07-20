@@ -12,9 +12,9 @@ const PostSchema = new Schema({
         //ref refers to what collection the schemas  belong to
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   author_id: { type: String },
-  likedUsers: [{ type: Schema.Types.ObjectId, ref: "User"}],
-  likes: { type: Number }
-});
+  likedUsers: [{ type: Schema.Types.ObjectId, ref: "User" }]
+
+}, {minimize:false}); //makes empty fields for fields not intialized when creating new model
 
 PostSchema.pre("save", function(next) {
   //set updatedat date
@@ -31,7 +31,7 @@ PostSchema.pre("save", function(next) {
   next();   //this promise if finished, go to next one
 });
 
-// Always populate the author field
+//Prehooks, whenever a model is found? it autumatically populates all the fields for us
 PostSchema
     .pre('findOne', Populate('author'))
     .pre('find', Populate('author'))

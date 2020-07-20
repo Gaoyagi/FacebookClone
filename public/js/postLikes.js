@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  
     $(".like").submit(function(e) {
       e.preventDefault();
   
@@ -14,6 +15,5 @@ $(document).ready(function() {
         }
       });
     });
-  
 
-  });
+});

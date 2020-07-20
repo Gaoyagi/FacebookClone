@@ -7,9 +7,9 @@ var exphbs = require('express-handlebars');               //express-handlebars t
 const bodyParser = require('body-parser');                //body-parser for parsing requests
 const expressValidator = require('express-validator');    //express-validator is a wrapper for validator.js whcih santizes  string inputs
 var cookieParser = require('cookie-parser');              //cookie-parser lets you change and set cookies
-const jwt = require('jsonwebtoken');                      //JWT lets you
-var flash = require('connect-flash');
-//const methodOverride = require('method-override')
+const jwt = require('jsonwebtoken');                      //JWT auth for coookies
+var flash = require('connect-flash');                     //FIX LATER
+
 
 //custom middleware for checking authentication token, is checked on every route
 var checkAuth = (req, res, next) => {
@@ -32,13 +32,15 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 //USING MIDDLEWARE
-  //inilize body parser
+  //inilize and use body parser
 app.use(bodyParser.json());     
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator());    //use express-validator, has to be put after body pareser initialization why?
-app.use(cookieParser());        //has to be after express app is initialized?
-app.use(checkAuth);
-app.use(flash());
+app.use(expressValidator());        //use express-validator, has to be put after body pareser initialization why?
+app.use(cookieParser());            //has to be after express app is initialized?
+app.use(checkAuth);                 //use our custom auth middle ware made earlier
+app.use(express.static('public'));  //allows for use of ajax
+app.use(flash());               //FIX LATER
+
 
 // Choose a port to listen on
 const port = 3000

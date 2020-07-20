@@ -1,7 +1,10 @@
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
     <a href="/profile/{{post.author._id}}" class="lead">{{post.author.name}}</a>
-    <li class="list-group-item"><p>{{post.status}}</p></li>
+    <li class="list-group-item">
+      <h3>{{post.status}}</h3>
+      <p>Likes Count: {{post.likedUsers.length}}</p>
+      </li>
     
   </div>
 </div>  
@@ -18,7 +21,7 @@
   <h4>Comments</h4>
   {{#each post.comments}}
       <li class="list-group-item">
-        <p class="text-right">{{this.author.username}}</p>
+        <div class="lead"><a href="/profile/{{this.author._id}}" class="lead">{{this.author.name}}</a>
         <p>{{this.content}}</p>
       </li>
   {{/each}}

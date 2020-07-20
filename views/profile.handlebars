@@ -2,12 +2,34 @@
   <div class="col-sm-8 col-sm-offset-2">
     this is the profile page
     <li class="list-group-item">
-      <h1>hllo</h1>
-      <h3>{{ user.name }}</h3>
-      <h5>{{ user.email }}</h5>
-      <h5>{{ user.bday }}</h5>
-      <h5>{{ user.friend_num }}</h5>
+      <h2>{{ profileUser.name }}</h2>
+      <h5>{{ profileUser.email }}</h5>
+      <h5>Birthday: {{ profileUser.bday }}</h5>
+      <h5>Friends: {{ profileUser.friends.length }}</h5>
+      
+      {{#if currentUser}}
+        <form action="/profile/{{profileUser._id}}/add"  method="post">
+          <button class="btn btn-primary navbar-btn" type="submit">Add Friend</button>
+        </form>
+      {{/if}}
+
+      {{#each user.friends}}
+        <li class="list-group-item">{{this.name}}</li>
+      {{/each}}
     </li>
+
+    {{#each posts}}
+      <li class="list-group-item">
+          <div class="lead"><a href="/profile/{{this.author._id}}" class="lead">{{this.author.name}}</a>
+          <p>{{this.status}}</p>
+          
+          <form class="like" data-id="{{this._id}}">
+            <button class="btn btn-primary navbar-btn" type="submit">Like</button>
+          </form>
+
+          <a href="/posts/{{this._id}}" class="btn btn-primary navbar-btn">Comments</a>
+      </li>
+    {{/each}}
     
   </div>
 </div>

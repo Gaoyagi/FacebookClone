@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Populate = require("../util/autopopulate");
 
-const passportLocalMongoose = require('passport-local-mongoose');
-
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -13,7 +11,7 @@ const UserSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   bday: { type: String, required: true },
-  friend_num: { type: Number },
+  friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 });
 
@@ -39,7 +37,6 @@ UserSchema.pre("save", function(next) {
     });
   });
 
-  this.friend_num = 0;
 });
 
 //Model function to compare the passed in password with the models password (only works on mongodb objects, cant call lean() on it)
@@ -49,5 +46,5 @@ UserSchema.methods.comparePassword = function(password, done) {
   });
 };
 
-UserSchema.plugin(passportLocalMongoose);
+
 module.exports = mongoose.model("User", UserSchema);
