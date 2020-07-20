@@ -3,6 +3,9 @@
     <a href="/profile/{{post.author._id}}" class="lead">{{post.author.name}}</a>
     <li class="list-group-item">
       <h3>{{post.status}}</h3>
+      {{#if post.url}}
+        <img src="{{post.url}} width="200" height="300">
+      {{/if}}
       <p>Likes Count: {{post.likedUsers.length}}</p>
       </li>
     

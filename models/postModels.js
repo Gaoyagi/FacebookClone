@@ -8,6 +8,7 @@ const PostSchema = new Schema({
   createdAt: { type: Date },
   updatedAt: { type: Date },
   status: { type: String, required: true },
+  url: { type: String },
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],     //populate() only works with fields with type: type: Schema.Types.ObjectId
         //ref refers to what collection the schemas  belong to
   author: { type: Schema.Types.ObjectId, ref: 'User' },

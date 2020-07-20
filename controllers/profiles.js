@@ -4,14 +4,15 @@ const User = require('../models/userModels');
 module.exports = app => {
     //displays a users profile, shows their info and all their posts
     app.get('/profile/:id', (req, res) => {
-        var currentUser = req.user;             //gets the user requesting the page
-        let profileUser = null
-        User.findOne({ _id: req.params.id })       //find the user for the profile
-            //.populate('posts')
+        var currentUser = req.user;                 //gets the user requesting the page
+        let profileUser = null                      //temp hold for the user the profile shows
+        User.findOne({ _id: req.params.id })        //find the user for the profile
+            .populate("friends")               //populates the friend's l
             .lean()                                 //convert that user js object
             .then(user => {
                 profileUser = user;
-                return Post.find({ author: user._id } ).lean();    //finds all the posts in Posts collection   //{ favouriteFoods: { "$in" : ["sushi"]} }
+                return Post.find({ author: user._id }) //finds all the posts in Posts collection  
+                    .lean();    
             })
             //renders to profile page with current user, profile user, and the posts for the profile
             .then(posts => {

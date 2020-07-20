@@ -4,16 +4,12 @@
       <legend>New Post</legend>
       <div class="form-group">
         <label for="status">Status</label>
-        <textarea name="status" class="form-control" id="status" placeholder="What's on your mind?"></textarea>
-      </div>
-      {{!-- <div class="form-group">
-        <label for="post-url">Url</label>
-        <input type="url" name="url" class="form-control" id="post-url" placeholder="https://www.google.com">
+        <textarea name="status" class="form-control" id="status" placeholder="What's on your mind?" required></textarea>
       </div>
       <div class="form-group">
-        <label for="post-summary">Summary</label>
-        <textarea name="summary" class="form-control" id="post-summary" placeholder="Title"></textarea>
-      </div> --}}
+        <label for="image-url">Image Url (optional)</label>
+        <input type="url" name="url" class="form-control" id="post-url" placeholder="Image Url">
+      </div>
       <div class='text-right'>
         <button type="submit" class="btn btn-primary">Create Post</button>
       </div>

@@ -13,8 +13,9 @@
         </form>
       {{/if}}
 
-      {{#each user.friends}}
-        <li class="list-group-item">{{this.name}}</li>
+      {{#each profileUser.friends}}
+        {{!-- <li class="list-group-item">{{this.name}}</li> --}}
+        <a href="/profile/{{this._id}}" >{{this.name}}</a>
       {{/each}}
     </li>
 
@@ -22,7 +23,9 @@
       <li class="list-group-item">
           <div class="lead"><a href="/profile/{{this.author._id}}" class="lead">{{this.author.name}}</a>
           <p>{{this.status}}</p>
-          
+          {{#if this.url}}
+            <img src="{{this.url}} width="200" height="300">
+          {{/if}}
           <form class="like" data-id="{{this._id}}">
             <button class="btn btn-primary navbar-btn" type="submit">Like</button>
           </form>
